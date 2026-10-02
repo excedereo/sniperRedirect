@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Roblox Join</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         background: #1e1f22; color: #dbdee1; font: 16px system-ui, sans-serif; }
+  .box { text-align: center; padding: 24px; max-width: 420px; }
+  a.btn { display: inline-block; margin-top: 16px; padding: 10px 20px; border-radius: 6px;
+          background: #5865f2; color: #fff; text-decoration: none; }
+  code { font-size: 12px; color: #949ba4; word-break: break-all; }
+</style>
+</head>
+<body>
+<div class="box">
+  <div id="msg">Запускаю Roblox...</div>
+  <a class="btn" id="btn" href="#" hidden>Открыть ещё раз</a>
+  <p><code id="job"></code></p>
+</div>
+<script>
+  // Пример: join.html?placeId=74729868188364&jobId=039b09b6-d8b5-4e8e-8f6b-16ceb274d53b
+  var p = new URLSearchParams(location.search);
+  var place = p.get("placeId") || "";
+  var job = p.get("jobId") || "";
+  var ok = /^\d{1,20}$/.test(place) &&
+           /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(job);
+  if (!ok) {
+    document.getElementById("msg").textContent = "Неверная ссылка";
+  } else {
+    var link = "roblox://experiences/start?placeId=" + place + "&gameInstanceId=" + job;
+    var btn = document.getElementById("btn");
+    btn.href = link;
+    btn.hidden = false;
+    document.getElementById("job").textContent = job;
+    location.href = link;
+  }
+</script>
+</body>
+</html>
